@@ -29,19 +29,31 @@ class LinkedList:
         :param data: integer data that will be used to create a node
         """
         # Write code here
-        current=self.head
-        while(current):
-            current=current.next
-        current=Node(data)
+        if self.head==None:
+            self.head=Node(data)
+        else:
+            current=self.head
+            while(current.next):
+                current=current.next
+            current.next=Node(data)
+
 
     def status(self):
         """
         It prints all the elements of list.
         """
-        current=self.head
-        while(current):
-            println(current.data)
-            current=current.next
+        # write code here
+        self.l=[]
+        curr=self.head
+        #self.l.append(curr.data)
+        #print(curr.data,"(((((")
+        while(curr):
+            self.l.append(curr.data)
+        #    print(curr.data, "(((((((")
+            curr=curr.next
+        print(self.l)
+
+
 
 
 class Solution:
@@ -55,39 +67,86 @@ class Solution:
         :return: returns the sum as a linked list
         """
         # Write code here
-        current =first_list.head
-        F_digits=0
-        while(current):
-            F_digits=F_digits+1
-            current=current.next
-        
-        S_digits=0
-        current =second_list.head
-        while(current):
-            S_digits=S_digits+1
-            current=current.next
-            
-        ans=LinkedList()
-        F_current=first_list.head
-        S_current=second_list.head
-        if F_digits>S_digits:
-            for i in range(S_digits):
-                ans.insert_at_end(F_current.data+S_current.data)
-                F_current=F_current.next
-                S_current=S_current.next
-        else:
-            for i in range(F_digits):
-                ans.insert_at_end(F_current.data+S_current.data)
-                F_current=F_current.next
-                S_current=S_current.next
-            
-            
-            
-        
-        
-        
+        cur=first_list.head
+        a=1
+        while(cur.next):
+            cur=cur.next
+            a+=1
 
-# Do not edit the following code      
+        cur = second_list.head
+        b = 1
+        while (cur.next):
+            cur = cur.next
+            b += 1
+
+
+
+        while(a<b):
+            first_list.insert_at_end(0)
+            a+=1
+        while(a>b):
+            second_list.insert_at_end(0)
+            b+=1
+        #print("\n\n\n\n\nfirst:", first_list.status(), "\n\n\n\n")
+        #print("\n\n\n\n\nsecond:", second_list.status(), "\n\n\n\n")
+
+        fcur=first_list.head
+        scur=second_list.head
+        ans=LinkedList()
+        prev=0
+        #print()
+        for k in range(a):
+            if prev == 1:
+                a = fcur.data + scur.data + 1
+                prev = 0
+                count = 0
+                if a >= 10:
+                    count = a - 10
+                    prev = 1
+                    ans.insert_at_end(count)
+                    #print(k," ",count,"/////")
+                    #ans.status()
+                    fcur = fcur.next
+                    scur = scur.next
+                else:
+                    ans.insert_at_end(a)
+                    #print(k, " ",a,"****")
+                    #ans.status()
+                    fcur = fcur.next
+                    scur = scur.next
+
+            else:
+                a = fcur.data + scur.data
+                count = 0
+                if a >= 10:
+                    count = a - 10
+                    prev = 1
+                    ans.insert_at_end(count)
+                    #print(count," &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+                    #print(k, " ", count,"----")
+                    #ans.status()
+                    fcur = fcur.next
+                    scur = scur.next
+
+                else:
+                    ans.insert_at_end(fcur.data + scur.data)
+                    #print(k, " ", fcur.data + scur.data,"+++++")
+                    #ans.status()
+                    fcur = fcur.next
+                    scur = scur.next
+        if(prev==1):
+            ans.insert_at_end(1)
+        #ans.status()
+        return ans
+
+
+
+
+
+
+
+
+# Do not edit the following code
 # Create an instance for LinkedList
 first_list = LinkedList()
 # Create an another instance for LinkedList
